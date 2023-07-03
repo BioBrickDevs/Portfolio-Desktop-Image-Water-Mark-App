@@ -9,15 +9,15 @@ import os
 file_path = os.getcwd()
 
 # 1.load image to be water marked
-image_backround = Image.open("backround.png")
+# image_backround = Image.open("backround.png")
 # 2.load water mark image
-image_water_mark = Image.open("water_mark.png")
+# image_water_mark = Image.open("water_mark.png")
 
 # 3 mix images
 
-image_backround = image_backround.copy()
-image_backround.paste(image_water_mark)
-image_backround.save("edited.png", quality=100)
+# image_backround = image_backround.copy()
+# image_backround.paste(image_water_mark)
+# image_backround.save("edited.png", quality=100)
 
 # image_backround.show()
 
@@ -69,9 +69,9 @@ def get_water_mark():
 
 window = tk.Tk()
 canvas = tk.Canvas(window, height=1200, width=1200)
-image_pillow = Image.open("./girl.webp")
-image_pillow = ImageTk.PhotoImage(image_pillow)
-image_to_config = image_pillow
+# image_pillow = Image.open("./girl.webp")
+# image_pillow = ImageTk.PhotoImage(image_pillow)
+# image_to_config = image_pillow
 # show_image = canvas.create_image((600, 600), image=image_to_config)
 canvas.pack()
 
@@ -125,7 +125,7 @@ def getorigin2(eventorigin):
     # canvas.itemconfigure(show_image, height=height,
     # width=width, image=display_image)
 
-        print("pöö")
+        # print("pöö")
 
 
 canvas.bind("<Button 1>", getorigin)
