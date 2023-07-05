@@ -1,4 +1,3 @@
-
 import tkinter as tk
 from tkinter import filedialog
 from PIL import Image, ImageDraw, ImageFilter, ImageTk
@@ -45,8 +44,6 @@ def getorigin(eventorigin):
     global x, y
     x = eventorigin.x
     y = eventorigin.y
-    if background_loaded:
-        print(x, y)
 
 
 def getorigin2(eventorigin):
@@ -77,15 +74,14 @@ def getorigin2(eventorigin):
         canvas.create_image((0, 0), image=display_image, anchor="nw")
 
 
-canvas.bind("<Button 1>", getorigin)
-canvas.bind("<Button 3>", getorigin2)
-
-
-canvas.bind('<Motion>', get_coordinates)
+canvas.bind("<Button 1>", getorigin)  # left mouse button gets cordinates
+canvas.bind("<Button 3>", getorigin2)  # right mouse button gets cordinates
+canvas.bind('<Motion>', get_coordinates)  # mouse movement gets cordinates
 # handle <Alt>+<Tab> switches between windows
 canvas.bind('<Enter>', get_coordinates)
 tag = canvas.create_text(10, 10, text='', anchor='nw')
-greeting = tk.Label(text="First open image to be water marked. Then open the water mark and stamp the water mark with right mouse button.")
+greeting = tk.Label(
+    text="First open image to be water marked. Then open the water mark and stamp the water mark with right mouse button.")
 greeting.pack()
 
 open_file_button = tk.Button(
