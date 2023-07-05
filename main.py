@@ -74,8 +74,12 @@ def water_mark_the_image(eventorigin):
         canvas.create_image((0, 0), image=display_image, anchor="nw")
 
 def save():
-    file_name = 
-
+    if background_loaded and water_mark_path_loaded:
+        file_name = filedialog.asksaveasfile().name
+        image = Image.open("edited.png")
+        image.save(file_name)
+    
+    
 canvas.bind("<Button 1>", get_cordinates)  # left mouse button gets cordinates
 canvas.bind("<Button 3>", water_mark_the_image)  # right mouse button gets cordinates
 canvas.bind('<Motion>', get_coordinates)  # mouse movement gets cordinates
@@ -96,4 +100,5 @@ open_water_mark = tk.Button(
 save_water_mark =tk.Button(master=window, text= "Save", command=save)
 open_file_button.pack()
 open_water_mark.pack()
+save_water_mark.pack()
 window.mainloop()
