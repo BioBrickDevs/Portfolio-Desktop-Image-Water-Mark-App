@@ -13,22 +13,27 @@ def open_image_to_be_water_marked():
     global background_loaded
     global display_image
     global background_path_loaded
-    file_name = filedialog.askopenfile().name
-    background_path_loaded = file_name
-    pilImage = Image.open(file_name)
-    width, height = pilImage.size
-    display_image = ImageTk.PhotoImage(pilImage)
-    canvas.delete("all")
-    canvas.config(width=width, height=height)
-    canvas.create_image((0, 0), image=display_image, anchor="nw")
-    background_loaded = True
+    try:
+        file_name = filedialog.askopenfile().name
+        background_path_loaded = file_name
+        pilImage = Image.open(file_name)
+        width, height = pilImage.size
+        display_image = ImageTk.PhotoImage(pilImage)
+        canvas.delete("all")
+        canvas.config(width=width, height=height)
+        canvas.create_image((0, 0), image=display_image, anchor="nw")
+        background_loaded = True
+    except AttributeError:
+        pass    
 
 
 def get_water_mark():
     global water_mark_path_loaded
-    file_name = filedialog.askopenfile().name
-    water_mark_path_loaded = file_name
-    return file_name
+    try:
+        file_name = filedialog.askopenfile().name
+        water_mark_path_loaded = file_name
+    except AttributeError:
+        pass
 
 
 window = tk.Tk()
@@ -75,9 +80,12 @@ def water_mark_the_image(eventorigin):
 
 def save():
     if background_loaded and water_mark_path_loaded:
-        file_name = filedialog.asksaveasfile().name
-        image = Image.open("edited.png")
-        image.save(file_name)
+        try:
+            file_name = filedialog.asksaveasfile().name
+            image = Image.open("edited.png")
+            image.save(file_name)
+        except AttributeError:
+            print("No file.")
     
     
 canvas.bind("<Button 1>", get_cordinates)  # left mouse button gets cordinates
@@ -87,7 +95,8 @@ canvas.bind('<Motion>', get_coordinates)  # mouse movement gets cordinates
 canvas.bind('<Enter>', get_coordinates)
 tag = canvas.create_text(10, 10, text='', anchor='nw')
 greeting = tk.Label(
-    text="First open image to be water marked. Then open the water mark and stamp the water mark with right mouse button.")
+    text="""First open image to be water marked. Then open the water mark 
+    and stamp the water mark with right mouse button.""")
 greeting.pack()
 
 open_file_button = tk.Button(
@@ -97,7 +106,7 @@ open_file_button = tk.Button(
 open_water_mark = tk.Button(
     master=window, text="Open water mark", command=get_water_mark)
 
-save_water_mark =tk.Button(master=window, text= "Save", command=save)
+save_water_mark = tk.Button(master=window, text= "Save", command=save)
 open_file_button.pack()
 open_water_mark.pack()
 save_water_mark.pack()
