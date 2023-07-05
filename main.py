@@ -24,7 +24,7 @@ def open_image_to_be_water_marked():
         canvas.create_image((0, 0), image=display_image, anchor="nw")
         background_loaded = True
     except AttributeError:
-        pass    
+        pass
 
 
 def get_water_mark():
@@ -35,11 +35,6 @@ def get_water_mark():
     except AttributeError:
         pass
 
-
-window = tk.Tk()
-canvas = tk.Canvas(window, height=1200, width=1200)
-canvas.pack()
- 
 
 def get_coordinates(event):
     canvas.itemconfigure(tag, text='({x}, {y})'.format(x=event.x, y=event.y))
@@ -78,7 +73,8 @@ def water_mark_the_image(eventorigin):
         canvas.config(width=width, height=height)
         canvas.create_image((0, 0), image=display_image, anchor="nw")
 
-def save():
+
+def save_file():
     if background_loaded and water_mark_path_loaded:
         try:
             file_name = filedialog.asksaveasfile().name
@@ -86,27 +82,32 @@ def save():
             image.save(file_name)
         except AttributeError:
             print("No file.")
-    
-    
+
+
+window = tk.Tk()
+window.title("Water mark Application")
+canvas = tk.Canvas(window, height=1200, width=1200)
+canvas.pack()
 canvas.bind("<Button 1>", get_cordinates)  # left mouse button gets cordinates
-canvas.bind("<Button 3>", water_mark_the_image)  # right mouse button gets cordinates
+# right mouse button gets cordinates
+canvas.bind("<Button 3>", water_mark_the_image)
 canvas.bind('<Motion>', get_coordinates)  # mouse movement gets cordinates
 # handle <Alt>+<Tab> switches between windows
 canvas.bind('<Enter>', get_coordinates)
 tag = canvas.create_text(10, 10, text='', anchor='nw')
 greeting = tk.Label(
-    text="""First open image to be water marked. Then open the water mark 
+    text="""First open image to be water marked. Then open the water mark
     and stamp the water mark with right mouse button.""")
 greeting.pack()
 
 open_file_button = tk.Button(
-    master=window, text="Open image to be water marked", 
+    master=window, text="Open image to be water marked",
     command=open_image_to_be_water_marked)
 
 open_water_mark = tk.Button(
     master=window, text="Open water mark", command=get_water_mark)
 
-save_water_mark = tk.Button(master=window, text= "Save", command=save)
+save_water_mark = tk.Button(master=window, text="Save", command=save_file)
 open_file_button.pack()
 open_water_mark.pack()
 save_water_mark.pack()
